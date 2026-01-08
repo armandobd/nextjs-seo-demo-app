@@ -1,11 +1,16 @@
 import { MetadataRoute } from "next";
+import { getAllProducts } from "@/lib/products";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const products = getAllProducts();
 
-    if (!baseUrl) {
-        throw new Error("NEXT_PUBLIC_BASE_URL is not set");
-    }
+    const productEntries = products.map((product) => ({
+        url: `${baseUrl}/products/${product.id}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly" as const,
+        priority: 0.7,
+    }));
 
     return [
         {
@@ -20,17 +25,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: "weekly",
             priority: 0.8,
         },
-        {
-            url: `${baseUrl}/products/1`,
-            lastModified: new Date(),
-        },
-        {
-            url: `${baseUrl}/products/2`,
-            lastModified: new Date(),
-        },
-        {
-            url: `${baseUrl}/products/3`,
-            lastModified: new Date(),
-        },
+        ...productEntries,
     ];
 }
