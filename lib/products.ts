@@ -10,7 +10,6 @@ export interface Product {
   image: string;
   availability: ProductAvailability;
   brand: string;
-  sku: string;
   rating?: number;
   reviewCount?: number;
 }
@@ -26,7 +25,6 @@ const products: Product[] = [
     image: "/images/wireless-headphones-pro.jpg",
     availability: "InStock",
     brand: "AudioTech",
-    sku: "ATH-WHP-001",
     rating: 4.5,
     reviewCount: 324,
   },
@@ -40,7 +38,6 @@ const products: Product[] = [
     image: "/images/organic-cotton-tshirt.jpg",
     availability: "InStock",
     brand: "EcoWear",
-    sku: "EW-OC-TS-002",
     rating: 4.7,
     reviewCount: 156,
   },
@@ -54,7 +51,6 @@ const products: Product[] = [
     image: "/images/stainless-steel-bottle.jpg",
     availability: "InStock",
     brand: "HydroLife",
-    sku: "HL-SSB-003",
     rating: 4.8,
     reviewCount: 892,
   },
@@ -68,7 +64,6 @@ const products: Product[] = [
     image: "/images/premium-coffee-beans.jpg",
     availability: "InStock",
     brand: "RoastMaster",
-    sku: "RM-PCB-005",
     rating: 4.9,
     reviewCount: 234,
   },

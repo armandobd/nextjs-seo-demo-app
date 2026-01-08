@@ -58,13 +58,21 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
     if (!product) {
         return (
-            <main>
-                <h1>Product Not Found</h1>
-                <p>The product you are looking for does not exist.</p>
-                <nav aria-label="Navigation">
-                    <Link href="/products">Back to Products</Link>
-                </nav>
-            </main>
+            <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+                <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+                    <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
+                        <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
+                            Product Not Found
+                        </h1>
+                        <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+                            The product you are looking for does not exist.
+                        </p>
+                        <nav aria-label="Navigation">
+                            <Link href="/products">Back to Products</Link>
+                        </nav>
+                    </div>
+                </main>
+            </div>
         );
     }
 
@@ -80,7 +88,6 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
             "@type": "Brand",
             name: product.brand,
         },
-        sku: product.sku,
         offers: {
             "@type": "Offer",
             price: product.price,
@@ -134,41 +141,58 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData) }}
             />
-            <nav aria-label="Breadcrumb">
-                <ol>
-                    <li>
-                        <Link href="/">Home</Link>
-                    </li>
-                    <li>
-                        <Link href="/products">Products</Link>
-                    </li>
-                    <li aria-current="page">{product.name}</li>
-                </ol>
-            </nav>
-            <main>
-                <article>
-                    <header>
-                        <h1>{product.name}</h1>
-                    </header>
-                    <section aria-label="Product details">
-                        <h2>Product Information</h2>
-                        <p><strong>Description:</strong> {product.description}</p>
-                        <p><strong>Category:</strong> {product.category.join(", ")}</p>
-                        <p><strong>Price:</strong> {product.currency} {product.price.toFixed(2)}</p>
-                        <p><strong>Brand:</strong> {product.brand}</p>
-                        <p><strong>SKU:</strong> {product.sku}</p>
-                        <p><strong>Availability:</strong> {product.availability}</p>
-                        {product.rating && product.reviewCount && (
-                            <p>
-                                <strong>Rating:</strong> {product.rating} ({product.reviewCount} reviews)
-                            </p>
-                        )}
-                    </section>
-                </article>
-                <nav aria-label="Navigation">
-                    <Link href="/products">Back to Products</Link>
-                </nav>
-            </main>
+            <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+                <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+                    <nav aria-label="Breadcrumb" className="w-full">
+                        <ol className="flex gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                            <li>
+                                <Link href="/">Home</Link>
+                            </li>
+                            <li>/</li>
+                            <li>
+                                <Link href="/products">Products</Link>
+                            </li>
+                            <li>/</li>
+                            <li aria-current="page" className="text-black dark:text-zinc-50">{product.name}</li>
+                        </ol>
+                    </nav>
+                    <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
+                        <article className="w-full">
+                            <header>
+                                <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
+                                    {product.name}
+                                </h1>
+                            </header>
+                            <section aria-label="Product details" className="mt-8 space-y-4">
+                                <h2 className="text-xl font-semibold text-black dark:text-zinc-50">Product Information</h2>
+                                <p className="text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+                                    <strong>Description:</strong> {product.description}
+                                </p>
+                                <p className="text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+                                    <strong>Category:</strong> {product.category.join(", ")}
+                                </p>
+                                <p className="text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+                                    <strong>Price:</strong> {product.currency} {product.price.toFixed(2)}
+                                </p>
+                                <p className="text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+                                    <strong>Brand:</strong> {product.brand}
+                                </p>
+                                <p className="text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+                                    <strong>Availability:</strong> {product.availability}
+                                </p>
+                                {product.rating && product.reviewCount && (
+                                    <p className="text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+                                        <strong>Rating:</strong> {product.rating} ({product.reviewCount} reviews)
+                                    </p>
+                                )}
+                            </section>
+                        </article>
+                        <nav aria-label="Navigation">
+                            <Link href="/products">Back to Products</Link>
+                        </nav>
+                    </div>
+                </main>
+            </div>
         </>
     );
 }
