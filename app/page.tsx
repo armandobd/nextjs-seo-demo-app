@@ -1,4 +1,15 @@
 import Image from "next/image";
+import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Home - Best SEO practices in Next.js",
+  description: "This is home page for best SEO practices in Next.js.",
+  keywords: ["home", "best SEO practices", "Next.js"],
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}`,
+  },
+};
 
 export default function Home() {
   return (
@@ -19,6 +30,7 @@ export default function Home() {
           <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
             This is demo page for best SEO practices in Next.js.
           </p>
+          <Link href="/products">Products</Link>
         </div>
       </main>
     </div>
