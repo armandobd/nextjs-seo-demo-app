@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getAllProducts } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "Products - Best SEO practices in Next.js",
@@ -8,21 +9,25 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Products - Best SEO practices in Next.js",
     description: "This is products page for best SEO practices in Next.js.",
-    url: `${process.env.NEXT_PUBLIC_BASE_URL}/products`,
-    siteName: "Best SEO practices in Next.js",
+    url: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/products`,
+    siteName: "Next.js SEO Demo App",
     locale: "en_US",
     type: "website",
     images: [
-      { url: `${process.env.NEXT_PUBLIC_BASE_URL}/products.jpg` },
+      {
+        url: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/next.svg`,
+        width: 1200,
+        height: 630,
+        alt: "Products - Next.js SEO Demo App",
+      },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Products - Best SEO practices in Next.js",
     description: "This is products page for best SEO practices in Next.js.",
-    creator: "@armnd87",
     images: [
-      { url: `${process.env.NEXT_PUBLIC_BASE_URL}/products.jpg` },
+      `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/next.svg`,
     ],
   },
   robots: {
@@ -38,28 +43,58 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/products`,
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/products`,
   },
 };
 
-const products = [
-  { id: 1, name: "Product 1", description: "This is product 1", category: "Category 1" },
-  { id: 2, name: "Product 2", description: "This is product 2", category: "Category 2" },
-  { id: 3, name: "Product 3", description: "This is product 3", category: "Category 3" },
-];
+export default function ProductsPage() {
+  const products = getAllProducts();
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
-export function ProductsPage() {
+  const collectionPageStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Products - Best SEO practices in Next.js",
+    description: "This is products page for best SEO practices in Next.js.",
+    url: `${baseUrl}/products`,
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: products.length,
+      itemListElement: products.map((product, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "Product",
+          "@id": `${baseUrl}/products/${product.id}`,
+          name: product.name,
+          description: product.description,
+        },
+      })),
+    },
+  };
+
   return (
-    <div>
-      <h1>Products</h1>
-      <p>This is products page for best SEO practices in Next.js.</p>
-      <ul>
-        {products.map((product) => (
-          <li key={product.id}>
-            <Link href={`/products/${product.id}`}>{product.name}</Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageStructuredData) }}
+      />
+      <main>
+        <header>
+          <h1>Products</h1>
+          <p>This is products page for best SEO practices in Next.js.</p>
+        </header>
+        <section aria-label="Product list">
+          <h2>Available Products</h2>
+          <ul>
+            {products.map((product) => (
+              <li key={product.id}>
+                <Link href={`/products/${product.id}`}>{product.name}</Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </main>
+    </>
   );
 }
