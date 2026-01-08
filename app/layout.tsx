@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { getBaseUrl } from "@/lib/url";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,9 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
-  ),
+  metadataBase: new URL(getBaseUrl()),
   title: {
     default: "Next.js SEO Demo App",
     template: "%s | Next.js SEO Demo App",
@@ -41,7 +40,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000",
+    url: getBaseUrl(),
     siteName: "Next.js SEO Demo App",
     title: "Next.js SEO Demo App",
     description:

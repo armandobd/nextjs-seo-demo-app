@@ -1,8 +1,9 @@
 import { MetadataRoute } from "next";
 import { getAllProducts } from "@/lib/products";
+import { getBaseUrl } from "@/lib/url";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const baseUrl = getBaseUrl();
     const products = getAllProducts();
 
     const productEntries = products.map((product) => ({

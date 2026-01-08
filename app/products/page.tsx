@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllProducts } from "@/lib/products";
+import { getBaseUrl } from "@/lib/url";
 
 export const metadata: Metadata = {
   title: "Products - Best SEO practices in Next.js",
@@ -9,13 +10,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Products - Best SEO practices in Next.js",
     description: "This is products page for best SEO practices in Next.js.",
-    url: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/products`,
+    url: `${getBaseUrl()}/products`,
     siteName: "Next.js SEO Demo App",
     locale: "en_US",
     type: "website",
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/next.svg`,
+        url: `${getBaseUrl()}/next.svg`,
         width: 1200,
         height: 630,
         alt: "Products - Next.js SEO Demo App",
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
     title: "Products - Best SEO practices in Next.js",
     description: "This is products page for best SEO practices in Next.js.",
     images: [
-      `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/next.svg`,
+      `${getBaseUrl()}/next.svg`,
     ],
   },
   robots: {
@@ -43,13 +44,13 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/products`,
+    canonical: `${getBaseUrl()}/products`,
   },
 };
 
 export default function ProductsPage() {
   const products = getAllProducts();
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+  const baseUrl = getBaseUrl();
 
   const collectionPageStructuredData = {
     "@context": "https://schema.org",

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { getBaseUrl } from "@/lib/url";
 
 export const metadata: Metadata = {
   title: "Home - Best SEO practices in Next.js",
@@ -9,13 +10,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Home - Best SEO practices in Next.js",
     description: "This is home page for best SEO practices in Next.js.",
-    url: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}`,
+    url: getBaseUrl(),
     siteName: "Next.js SEO Demo App",
     locale: "en_US",
     type: "website",
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/next.svg`,
+        url: `${getBaseUrl()}/next.svg`,
         width: 1200,
         height: 630,
         alt: "Next.js SEO Demo App",
@@ -27,21 +28,22 @@ export const metadata: Metadata = {
     title: "Home - Best SEO practices in Next.js",
     description: "This is home page for best SEO practices in Next.js.",
     images: [
-      `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/next.svg`,
+      `${getBaseUrl()}/next.svg`,
     ],
   },
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}`,
+    canonical: getBaseUrl(),
   },
 };
 
 export default function Home() {
+  const baseUrl = getBaseUrl();
   const organizationStructuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Next.js SEO Demo App",
-    url: process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000",
-    logo: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/next.svg`,
+    url: baseUrl,
+    logo: `${baseUrl}/next.svg`,
     description: "A comprehensive demonstration of SEO best practices in Next.js",
     sameAs: [],
   };
